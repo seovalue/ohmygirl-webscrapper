@@ -38,6 +38,7 @@ def get_recent_videos(path):
             arg.append(link)
             title_link.append(arg)
 
+    title_link = list(set(title_link))
     driver.close()
     return title_link
     # for key, value in title_link.items():
