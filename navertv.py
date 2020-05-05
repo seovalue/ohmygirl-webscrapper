@@ -25,16 +25,18 @@ def get_recent_videos(path):
     soup = BeautifulSoup(html ,'lxml')
     rawsource = soup.find("div" ,{"class" :"cds_area"})
 
-    title_link = []
+    title_link = {}
 
     for raw in rawsource.find_all('a'):
-        arg = []
         link = "https://tv.naver.com" + raw.get('href').replace("..", "").replace("./", "", 1)
         title = raw.get('title')
-        arg.append(title)
-        arg.append(link)
-        title_link.append(arg)
+        title_link[title] = link
 
-    title_link = list(set(title_link))
+    result = []
+    for key, value in title_link.items():
+        arg = []
+        arg.append(key)
+        arg.append(value)
+        result.append(arg)
     driver.close()
-    return title_link
+    return result

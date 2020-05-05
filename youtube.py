@@ -27,19 +27,21 @@ def get_recent_videos(path):
     #    all_title.append(title.get_text())
 
     rawsource = soup.find_all(class_="style-scope ytd-video-renderer")
-    title_link = []
+    title_link = {}
     for raw in rawsource:
         parselink = raw.find("a","yt-simple-endpoint style-scope ytd-video-renderer")
-        arg = []
         if(parselink != None):
             link = "https://www.youtube.com" + parselink.get("href").replace("..","").replace("./","",1)
             title = parselink.get_text().replace("\n","")
-            arg.append(title)
-            arg.append(link)
-            title_link.append(arg)
+            title_link[title] = link
 
-    title_link = list(set(title_link))
+    result = []
+    for key, value in title_link.items():
+        arg = []
+        arg.append(key)
+        arg.append(value)
+        result.append(arg)
+
+
     driver.close()
-    return title_link
-    # for key, value in title_link.items():
-    #     print(key ,value)
+    return result
