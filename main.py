@@ -6,12 +6,12 @@ import os
 print("Checking for new videos of ohmygirl ...")
 path = os.getcwd()+ "/chromedriver.exe"
 path = path.replace("\\","/")
-#path = 'C:/Users/mgmgj/Documents/chromedriver.exe'
 
 youtube_list = get_youtube(path)
 navertv_list = get_navertv(path)
 
 try:
+
     youtube = pd.DataFrame(youtube_list)
     youtube.columns = ["title", "link"]
     youtube.to_html("오마이걸_유튜브.html")
